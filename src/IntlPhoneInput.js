@@ -176,7 +176,7 @@ export default class IntlPhoneInput extends React.Component {
       phoneInputStyle,
       dialCodeTextStyle,
       inputProps,
-      placeholderTextColor
+      // placeholderTextColor
     } = this.props;
     return (
       <View style={{ ...styles.container, ...containerStyle }}>
@@ -297,7 +297,11 @@ const styles = StyleSheet.create({
   },
   phoneInputStyle: {
     marginLeft: 5,
-    flex: 1
+    flex: 1,
+    padding: 5,
+    padddingHorizontal: 10,
+    backgroundColor: '#efefef',
+    borderRadius: 6
   },
   container: {
     flexDirection: 'row',
