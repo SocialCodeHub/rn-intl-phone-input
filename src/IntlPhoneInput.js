@@ -120,7 +120,6 @@ export default class IntlPhoneInput extends React.Component {
       modalCountryItemCountryDialCodeStyle,
       closeText,
       filterText,
-      searchIconStyle,
       closeButtonStyle,
       lang,
       placeholderTextColor
@@ -191,13 +190,13 @@ export default class IntlPhoneInput extends React.Component {
         <TextInput
           {...inputProps}
           style={[styles.phoneInputStyle, phoneInputStyle]}
-          placeholder={this.props.placeholder || this.state.mask.replace(/9/g, '_')}
+          // placeholder={this.props.placeholder || this.state.mask.replace(/9/g, '_')}
           autoCorrect={false}
           keyboardType="number-pad"
           secureTextEntry={false}
           value={this.state.phoneNumber}
           onChangeText={this.onChangeText}
-          placeholderTextColor={placeholderTextColor}
+          // placeholderTextColor={placeholderTextColor}
         />
         {this.renderAction()}
 
@@ -224,7 +223,6 @@ IntlPhoneInput.propTypes = {
   modalCountryItemCountryNameStyle: PropTypes.object, // {}
   filterText: PropTypes.string,
   closeText: PropTypes.string,
-  searchIconStyle: PropTypes.object,
   disableCountryChange: PropTypes.bool,
   inputRef: PropTypes.object,
   placeholderTextColor: PropTypes.string
@@ -275,7 +273,11 @@ const styles = StyleSheet.create({
   },
   openDialogView: {
     flexDirection: 'row',
-    alignItems: 'center'
+    alignItems: 'center',
+    backgroundColor: '#efefef',
+    paddingHorizontal: 5,
+    borderRadius: 6,
+    marginRight: 5,
   },
   filterInputStyle: {
     flex: 1,
@@ -304,11 +306,6 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     alignItems: 'center',
     backgroundColor: 'white',
-  },
-  searchIconStyle: {
-    color: 'black',
-    fontSize: 15,
-    marginLeft: 15
   },
   buttonStyle: {
     alignItems: 'center',
