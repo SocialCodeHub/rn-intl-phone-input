@@ -25,18 +25,18 @@ export default class IntlPhoneInput extends React.Component {
       phoneNumber: '',
       mask: props.mask || defaultCountry.mask,
       countryData: data,
-      selectedCountry:defaultCountry,
+      selectedCountry: defaultCountry,
       placeholderTextColor: 'grey'
     };
   }
 
-  onChangePropText=(unmaskedPhoneNumber, phoneNumber) => {
+  onChangePropText = (unmaskedPhoneNumber, phoneNumber) => {
     const { dialCode, mask, selectedCountry } = this.state;
     const countOfNumber = mask.match(/9/g).length;
     if (this.props.onChangeText) {
       const isVerified = countOfNumber === unmaskedPhoneNumber?.length && phoneNumber?.length > 0;
       this.props.onChangeText({
-        dialCode, unmaskedPhoneNumber, phoneNumber, isVerified,selectedCountry
+        dialCode, unmaskedPhoneNumber, phoneNumber, isVerified, selectedCountry
       });
     }
   }
@@ -83,7 +83,7 @@ export default class IntlPhoneInput extends React.Component {
         flag: country.flag,
         mask: this.props.mask || country.mask,
         phoneNumber: '',
-        selectedCountry:country
+        selectedCountry: country
       });
       this.hideModal();
     } catch (err) {
@@ -93,15 +93,15 @@ export default class IntlPhoneInput extends React.Component {
         flag: defaultCountry.flag,
         mask: this.props.mask || defaultCountry.mask,
         phoneNumber: '',
-        selectedCountry:defaultCountry
+        selectedCountry: defaultCountry
       });
     }
   }
 
   filterCountries = (value) => {
-   const { lang
-  } = this.props;
-    const countryData = data.filter((obj) => (obj[lang?.toLowerCase()??"en"]?.indexOf(value) > -1 || obj.dialCode.indexOf(value) > -1));
+    const { lang
+    } = this.props;
+    const countryData = data.filter((obj) => (obj[lang?.toLowerCase() ?? "en"]?.indexOf(value) > -1 || obj.dialCode.indexOf(value) > -1));
     this.setState({ countryData });
   }
 
@@ -109,8 +109,8 @@ export default class IntlPhoneInput extends React.Component {
     this.props.inputRef.current.focus();
   }
 
-  renderModal=() => {
-    if (this.props.customModal) return this.props.customModal(this.state.modalVisible,this.state.countryData,this.onCountryChange);
+  renderModal = () => {
+    if (this.props.customModal) return this.props.customModal(this.state.modalVisible, this.state.countryData, this.onCountryChange);
     const {
       countryModalStyle,
       modalContainer,
@@ -128,47 +128,46 @@ export default class IntlPhoneInput extends React.Component {
     return (
       <Modal animationType="slide" transparent={false} visible={this.state.modalVisible}>
         <SafeAreaView style={{ flex: 1 }}>
-        <View style={[styles.modalContainer, modalContainer]}>
-          <View style={styles.filterInputStyleContainer}>
-            <TextInput autoCapitalize="words" autoFocus onChangeText={this.filterCountries} placeholder={filterText || 'Filter'} style={[styles.filterInputStyle, filterInputStyle]} placeholderTextColor={placeholderTextColor }/>
-            <Text style={[styles.searchIconStyle, searchIconStyle]}>🔍</Text>
+          <View style={[styles.modalContainer, modalContainer]}>
+            <View style={styles.filterInputStyleContainer}>
+              <TextInput autoCapitalize="words" autoFocus onChangeText={this.filterCountries} placeholder={filterText || 'Filter'} style={[styles.filterInputStyle, filterInputStyle]} placeholderTextColor={placeholderTextColor} />
+            </View>
+            <FlatList
+              style={{ flex: 1 }}
+              data={this.state.countryData}
+              keyExtractor={(item, index) => index.toString()}
+              renderItem={
+                ({ item }) => (
+                  <TouchableWithoutFeedback onPress={() => this.onCountryChange(item.code)}>
+                    <View style={[styles.countryModalStyle, countryModalStyle]}>
+                      <Text style={[styles.modalFlagStyle, modalFlagStyle]}>{item.flag}</Text>
+                      <View style={styles.modalCountryItemContainer}>
+                        <Text style={[styles.modalCountryItemCountryNameStyle, modalCountryItemCountryNameStyle]}>{item[lang?.toLowerCase() ?? "en"]}</Text>
+                        <Text style={[styles.modalCountryItemCountryDialCodeStyle, modalCountryItemCountryDialCodeStyle]}>{`  ${item.dialCode}`}</Text>
+                      </View>
+                    </View>
+                  </TouchableWithoutFeedback>
+                )
+              }
+            />
           </View>
-          <FlatList
-            style={{ flex: 1 }}
-            data={this.state.countryData}
-            keyExtractor={(item, index) => index.toString()}
-            renderItem={
-          ({ item }) => (
-            <TouchableWithoutFeedback onPress={() => this.onCountryChange(item.code)}>
-              <View style={[styles.countryModalStyle, countryModalStyle]}>
-                <Text style={[styles.modalFlagStyle, modalFlagStyle]}>{item.flag}</Text>
-                <View style={styles.modalCountryItemContainer}>
-                  <Text style={[styles.modalCountryItemCountryNameStyle, modalCountryItemCountryNameStyle]}>{item[lang?.toLowerCase()??"en"]}</Text>
-                  <Text style={[styles.modalCountryItemCountryDialCodeStyle, modalCountryItemCountryDialCodeStyle]}>{`  ${item.dialCode}`}</Text>
-                </View>
-              </View>
-            </TouchableWithoutFeedback>
-          )
-        }
-          />
-        </View>
-        <TouchableOpacity onPress={() => this.hideModal()} style={[styles.closeButtonStyle, closeButtonStyle]}>
-          <Text style={styles.closeTextStyle}>{closeText || 'CLOSE'}</Text>
-        </TouchableOpacity>
+          <TouchableOpacity onPress={() => this.hideModal()} style={[styles.closeButtonStyle, closeButtonStyle]}>
+            <Text style={styles.closeTextStyle}>{closeText || 'CLOSE'}</Text>
+          </TouchableOpacity>
         </SafeAreaView>
       </Modal>
     );
   }
 
-renderAction=()=>{
-  const renderAction=this.props.renderAction;
-  if(renderAction) {
-    console.log("action",renderAction);
-    if(typeof renderAction!=="function") throw ("The renderAction is not a function. Please set a renderAction function on there");
-    else return this.props.renderAction();
+  renderAction = () => {
+    const renderAction = this.props.renderAction;
+    if (renderAction) {
+      console.log("action", renderAction);
+      if (typeof renderAction !== "function") throw ("The renderAction is not a function. Please set a renderAction function on there");
+      else return this.props.renderAction();
+    }
+    return null;
   }
-  return null;
-}
 
   render() {
     const { flag } = this.state;
@@ -300,7 +299,7 @@ const styles = StyleSheet.create({
   },
   container: {
     flexDirection: 'row',
-    paddingHorizontal: 12,
+    paddingHorizontal: 0,
     padding: 5,
     borderRadius: 10,
     alignItems: 'center',
