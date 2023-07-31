@@ -190,7 +190,7 @@ export default class IntlPhoneInput extends React.Component {
         <TextInput
           {...inputProps}
           style={[styles.phoneInputStyle, phoneInputStyle]}
-          // placeholder={this.props.placeholder || this.state.mask.replace(/9/g, '_')}
+          placeholder={this.props.placeholder || this.state.mask.replace(/9/g, '_')}
           autoCorrect={false}
           keyboardType="number-pad"
           secureTextEntry={false}
