@@ -115,6 +115,7 @@ export default class IntlPhoneInput extends React.Component {
       countryModalStyle,
       modalContainer,
       modalFlagStyle,
+      openDialogView,
       filterInputStyle,
       modalCountryItemCountryNameStyle,
       modalCountryItemCountryDialCodeStyle,
@@ -181,7 +182,7 @@ export default class IntlPhoneInput extends React.Component {
     return (
       <View style={{ ...styles.container, ...containerStyle }}>
         <TouchableOpacity onPress={() => this.showModal()}>
-          <View style={styles.openDialogView}>
+          <View style={[styles.openDialogView, openDialogView]}>
             <Text style={[styles.flagStyle, flagStyle]}>{flag}</Text>
             <Text style={[styles.dialCodeTextStyle, dialCodeTextStyle]}>{this.state.dialCode}</Text>
           </View>
@@ -201,8 +202,6 @@ export default class IntlPhoneInput extends React.Component {
         {this.renderAction()}
 
       </View>
-
-
     );
   }
 }
@@ -213,6 +212,7 @@ IntlPhoneInput.propTypes = {
   mask: PropTypes.string,
   onChangeText: PropTypes.func,
   customModal: PropTypes.func,
+  openDialogView: PropTypes.object,
   phoneInputStyle: PropTypes.object, // {}
   containerStyle: PropTypes.object, // {}
   dialCodeTextStyle: PropTypes.object, // {}
