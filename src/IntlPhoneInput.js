@@ -115,7 +115,6 @@ export default class IntlPhoneInput extends React.Component {
       countryModalStyle,
       modalContainer,
       modalFlagStyle,
-      openDialogView,
       filterInputStyle,
       modalCountryItemCountryNameStyle,
       modalCountryItemCountryDialCodeStyle,
@@ -174,6 +173,7 @@ export default class IntlPhoneInput extends React.Component {
     const {
       containerStyle,
       flagStyle,
+      openDialogView,
       phoneInputStyle,
       dialCodeTextStyle,
       inputProps,
